@@ -1,0 +1,41 @@
+# 📄 ATS Resume Checker
+
+A Streamlit app that scores a resume for ATS (Applicant Tracking System) compatibility and suggests concrete improvements, powered by Google's Gemini Flash model.
+
+## Features
+- Upload a resume as **PDF, DOCX or TXT**
+- Optional **job description** for keyword matching
+- Overall ATS score (0-100) plus breakdown: formatting, keywords, experience impact, skills, education, readability
+- Strengths, missing keywords, prioritized improvements, and before/after bullet rewrites
+- Download the report as JSON
+
+## Run locally
+1. Get a free API key at https://aistudio.google.com/apikey
+2. Install and run:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate      # Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   export GEMINI_API_KEY="your_key"   # Windows PowerShell: $env:GEMINI_API_KEY="your_key"
+   streamlit run app.py
+   ```
+   You can also skip the environment variable and paste the key into the sidebar.
+
+## Deploy on Streamlit Community Cloud
+1. Push `app.py`, `requirements.txt` and `README.md` to a GitHub repo.
+2. Go to https://share.streamlit.io and click **Create app**.
+3. Choose the repo, branch `main`, and main file `app.py`.
+4. Open **Advanced settings > Secrets** and add:
+   ```toml
+   GEMINI_API_KEY = "your_key"
+   ```
+5. Click **Deploy**.
+
+## Configuration
+- The model defaults to `gemini-flash-latest`. Change it in the sidebar if you want a specific version.
+- Never commit your API key to GitHub.
+
+## Notes
+- Scanned/image-only PDFs can't be read (an ATS can't read them either).
+- The score is an AI estimate, not the output of a real ATS. Use it as guidance.
+- Resume text is sent to the Gemini API for analysis.
